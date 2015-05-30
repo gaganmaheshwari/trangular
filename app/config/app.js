@@ -4,7 +4,7 @@
  * @ngdoc overview
  * @name trangularApp
  * @description
- * # trangularApp
+ * #trangularApp
  *
  * Main module of the application.
  */
@@ -13,21 +13,23 @@ angular
     'ngAnimate',
     'ngCookies',
     'ngResource',
-    'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui.router'
   ])
-  .config(function ($routeProvider) {
-    $routeProvider
-      .when('/', {
-        templateUrl: '../views/main.html',
-        controller: 'MainCtrl'
+  .config(function ($stateProvider, $urlRouterProvider) {
+    // For any unmatched url, send to /
+    $urlRouterProvider.otherwise("/");
+
+    $stateProvider
+      .state('/', {
+        url:"/",
+        templateUrl: '../modules/main/main.html',
+        controller: 'mainCtrl'
       })
-      .when('/about', {
-        templateUrl: '../views/about.html',
-        controller: 'AboutCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
+      .state('about', {
+        url:"/about",
+        templateUrl: '../modules/about/about.html',
+        controller: 'aboutCtrl'
       });
   });
